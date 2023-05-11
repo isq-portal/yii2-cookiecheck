@@ -39,14 +39,11 @@ to the require section of your `composer.json` file.
 # composer update
 
 # import class to view
-use IsqPortal\Yii2Cookiecheck\$class;
+use IsqPortal\Yii2Cookiecheck\ISQCookiecheck;
 
 # integrate widget to view with options., e.g.:
-
-<?= Cookiecheck::widget(['options' => [
-       
-                    ]
-                ]); ?> 
+<? echo ISQCookiecheck::widget(['options' => []
+                                ]); 
 ```
 
 ## License
