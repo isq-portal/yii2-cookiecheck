@@ -1,0 +1,25 @@
+{
+    "name": "isq-portal/yii2-cookiecheck",
+    "description": "ISQ Yii2 Cookie Checker Widget for GDPR Compliance",
+    "type": "yii2-extension",
+    "require": {
+        "php": ">=7.4"
+    },
+    "license": "MIT",
+    "autoload": {
+        "psr-4": {
+            "IsqPortal\\Yii2Cookiecheck\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Bechtold",
+            "role": "Developer"
+        },
+        {
+            "name": "Schirmer",
+            "role": "Developer"
+        }
+    ],
+    "minimum-stability": "dev"
+}
