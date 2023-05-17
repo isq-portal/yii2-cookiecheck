@@ -3,7 +3,6 @@
 use app\util\helper\Helper;
 
 ?>
-<?php if (true || Helper::isLiveMode()) { ?>
 <script type="text/javascript">
     var _paq = _paq || [];
     /* tracker methods like "setCustomDimension" should be called before "trackPageView" */
@@ -17,4 +16,3 @@ use app\util\helper\Helper;
         g.type='text/javascript'; g.async=true; g.defer=true; g.src=u+'piwik.js'; s.parentNode.insertBefore(g,s);
     })();
 </script>
-<?php } ?>

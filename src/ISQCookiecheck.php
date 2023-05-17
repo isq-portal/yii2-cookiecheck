@@ -9,6 +9,7 @@ use yii\helpers\Html;
 use yii\helpers\Url;
 use yii\web\View;
 use yii\helpers\Json;
+use IsqPortal\Yii2Cookiecheck\ScwCookie;
 
 /** main ISQCookiecheck class definition */
 class ISQCookiecheck extends Widget
@@ -69,8 +70,11 @@ class ISQCookiecheck extends Widget
      */
     public function run()
     {
+        // require_once "ISQCookie.php";
+        $scwCookie = new ISQCookie($this->baseUrl);
         // return a dummy div tag with cookiecheck id and class
-        return Html::tag('div', 'Cookiecheck-Content', ['id' => 'cookiecheck', 'class' => 'cookiecheck']);
+        // return Html::tag('div', 'Cookiecheck-Content', ['id' => 'cookiecheck', 'class' => 'cookiecheck']);
+        return $scwCookie->output();
     }
 
     /**

@@ -1,25 +1,33 @@
 <?php
 
-namespace ScwCookie;
+namespace IsqPortal\Yii2Cookiecheck;
 
-class ScwCookie
+use Yii;
+
+/**
+ * main ISQCookie class for ISQ Cookie Handling and GDPR Compliance
+ */
+class ISQCookie
 {
     public $config        = [];
     private $decisionMade = false;
     private $choices      = [];
+    private $assetBasePath;
 
-    public function __construct()
+    public function __construct($basePath)
     {
         $this->config = parse_ini_file("config.ini", true);
 
-        $this->decisionMade = self::getCookie('scwCookieHidden') == 'true';
+
+        $this->decisionMade = self::getCookie('isqCookieBannerHidden') == 'true';
         $this->choices      = $this->getChoices();
+        $this->assetBasePath = $basePath;
     }
 
     public function getChoices()
     {
-        if (self::getCookie('scwCookie') !== false) {
-            $cookie = self::getCookie('scwCookie');
+        if (self::getCookie('isqCookie') !== false) {
+            $cookie = self::getCookie('isqCookie');
             $cookie = self::decrypt($cookie);
             return $cookie;
         }
@@ -82,7 +90,7 @@ class ScwCookie
             if (!is_array($configValue) || !$configValue['enabled'] || !$this->isAllowed($configKey)) {
                 continue;
             }
-            $return[] = $this->getOutputHTML('/cookies/'.$configKey.'/output');
+            $return[] = $this->getOutputHTML('cookies/'.$configKey.'/output');
         }
 
         return implode("\n", $return);
@@ -90,12 +98,12 @@ class ScwCookie
 
     public function getOutputHTML($filename)
     {
-        if (!file_exists(__DIR__.'/output/'.$filename.'.php')) {
+        if (!file_exists(Yii::getAlias("@webroot").$this->assetBasePath.'/output/'.$filename.'.php')) {
             return false;
         }
 
         ob_start();
-        include __DIR__.'/output/'.$filename.'.php';
+        include Yii::getAlias("@webroot").$this->assetBasePath.'/output/'.$filename.'.php';
         return trim(ob_get_clean());
     }
 
@@ -179,10 +187,10 @@ class ScwCookie
 
     public function clearCookieGroup($groupName)
     {
-        if (!file_exists(__DIR__.'/output/cookies/'.$groupName.'/cookies.php')) {
+        if (!file_exists(Yii::getAlias("@webroot").$this->assetBasePath.'/output/cookies/'.$groupName.'/cookies.php')) {
             return false;
         }
-        $clearCookies = include __DIR__.'/output/cookies/'.$groupName.'/cookies.php';
+        $clearCookies = include Yii::getAlias("@webroot").$this->assetBasePath.'/output/cookies/'.$groupName.'/cookies.php';
 
         $defaults = [
             'path'   => '/',

@@ -1,5 +1,5 @@
 <?php
-require_once('scwCookie.class.php');
+require_once('ISQCookie.php');
 
 if (!isset($_POST['action'])) {
     header('HTTP/1.0 403 Forbidden');
@@ -9,50 +9,50 @@ if (!isset($_POST['action'])) {
 switch ($_POST['action']) {
     case 'hide':
         // Set cookie
-        ScwCookie\ScwCookie::setCookie('scwCookieHidden', 'true', 52, 'weeks');
+        \IsqPortal\Yii2Cookiecheck\ISQCookie::setCookie('isqCookieBannerHidden', 'true', 52, 'weeks');
         header('Content-Type: application/json');
         die(json_encode(['success' => true]));
         break;
 
     case 'toggle':
-        $scwCookie = new ScwCookie\ScwCookie();
+        $isqCookie = new \IsqPortal\Yii2Cookiecheck\ISQCookie();
         $return    = [];
 
         // Update if cookie allowed or not
-        $choices = $scwCookie->getCookie('scwCookie');
+        $choices = $isqCookie->getCookie('isqCookie');
         if ($choices == false) {
             $choices = [];
-            $enabledCookies = $scwCookie->enabledCookies();
+            $enabledCookies = $isqCookie->enabledCookies();
             foreach ($enabledCookies as $name => $label) {
-                $choices[$name] = $scwCookie->config['unsetDefault'];
+                $choices[$name] = $isqCookie->config['unsetDefault'];
             }
-            $scwCookie->setCookie('scwCookie', $scwCookie->encrypt($choices), 52, 'weeks');
+            $isqCookie->setCookie('isqCookie', $isqCookie->encrypt($choices), 52, 'weeks');
         } else {
-            $choices = $scwCookie->decrypt($choices);
+            $choices = $isqCookie->decrypt($choices);
         }
         $choices[$_POST['name']] = $_POST['value'] == 'true' ? 'allowed' : 'blocked';
 
         // Remove cookies if now disabled
         if ($choices[$_POST['name']] == 'blocked') {
-            $removeCookies = $scwCookie->clearCookieGroup($_POST['name']);
+            $removeCookies = $isqCookie->clearCookieGroup($_POST['name']);
             $return['removeCookies'] = $removeCookies;
         }
 
-        $choices = $scwCookie->encrypt($choices);
-        $scwCookie->setCookie('scwCookie', $choices, 52, 'weeks');
+        $choices = $isqCookie->encrypt($choices);
+        $isqCookie->setCookie('isqCookie', $choices, 52, 'weeks');
 
         header('Content-Type: application/json');
         die(json_encode($return));
         break;
 
     case 'load':
-        $scwCookie = new ScwCookie\ScwCookie();
+        $isqCookie = new \IsqPortal\Yii2Cookiecheck\ISQCookie();
         $return    = [];
 
         $removeCookies = [];
 
-        foreach ($scwCookie->disabledCookies() as $cookie => $label) {
-            $removeCookies = array_merge($removeCookies, $scwCookie->clearCookieGroup($cookie));
+        foreach ($isqCookie->disabledCookies() as $cookie => $label) {
+            $removeCookies = array_merge($removeCookies, $isqCookie->clearCookieGroup($cookie));
         }
         $return['removeCookies'] = $removeCookies;
 

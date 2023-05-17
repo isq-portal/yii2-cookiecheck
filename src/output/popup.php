@@ -3,7 +3,10 @@
 // use Yii;
 
 ?>
-<link href="<?=Yii::getAlias("@web")?>/scwCookie/output/assets/scwCookie.min.css" rel="stylesheet" type="text/css">
+<link href="<?= $this->assetBasePath ?>/css/isqCookie.css" rel="stylesheet" type="text/css">
+<script>
+    var ISQCookieCheckAssetPath = '<?= $this->assetBasePath ?>';
+</script>
 <div class="scw-cookie<?= $this->decisionMade ? ' scw-cookie-out' : ''; ?>">
     <div class="scw-cookie-panel-toggle scw-cookie-panel-toggle-<?= $this->config['panelTogglePosition']; ?>"
         onclick="scwCookiePanelToggle()"
@@ -12,7 +15,7 @@
     </div>
     <div class="scw-cookie-content">
         <div class="scw-cookie-message">
-            Diese Website verwendet Cookies. Notwendige Cookies sind für den Betrieb der Website und die einwandfreie Funktion erforderlich. Cookies für die Webanalyse setzen wir ein, um die Nutzung unserer Website statistisch auszuwerten. Nähere Informationen finden Sie in unseren Datenschutzhinweisen. Dort können Sie auch Ihre Cookie-Einstellungen jederzeit ändern.
+            Diese Webseite verwendet Cookies. Notwendige Cookies sind für den Betrieb der Website und die einwandfreie Funktion erforderlich. Cookies für die Webanalyse setzen wir ein, um die Nutzung unserer Website statistisch auszuwerten. Nähere Informationen finden Sie in unseren Datenschutzhinweisen. Dort können Sie auch Ihre Cookie-Einstellungen jederzeit ändern.
         </div>
         <div class="scw-cookie-decision">
             <div class="scw-cookie-btn" onclick="scwCookieHide()">OK</div>
@@ -53,5 +56,5 @@
             </div>
         </div>
     </div>
-    <script src="<?=Yii::getAlias("@web")?>/scwCookie/output/assets/js-cookie.js" type="text/javascript"></script>
-    <script src="<?=Yii::getAlias("@web")?>/scwCookie/output/assets/scwCookie.js" type="text/javascript"></script>
+    <script src="<?= $this->assetBasePath ?>/js/js-cookie.js" type="text/javascript"></script>
+    <script src="<?= $this->assetBasePath ?>/js/isqCookie.js" type="text/javascript"></script>

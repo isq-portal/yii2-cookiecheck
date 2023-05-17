@@ -5,7 +5,7 @@ if (!jQuery('.scw-cookie').hasClass('scw-cookie-out')) {
 function scwCookieHide()
 {
     jQuery.post(
-        '../scwCookie/ajax.php',
+        ISQCookieCheckAssetPath+'/ajax.php',
         {
             action : 'hide'
         }
@@ -56,7 +56,7 @@ jQuery(document).on('change', '.scw-cookie-toggle input[type="checkbox"]', funct
     jQuery(this).closest('.scw-cookie').addClass('changed');
     jQuery(this).closest('.scw-cookie-switch').toggleClass('checked');
     jQuery.post(
-        '../scwCookie/ajax.php',
+        ISQCookieCheckAssetPath+'/ajax.php',
         {
             action : 'toggle',
             name   : jQuery(this).attr('name'),
@@ -85,7 +85,7 @@ jQuery(document).ready(function($){
 
 jQuery(document).ready(function($){
     jQuery.post(
-        '../scwCookie/ajax.php',
+        ISQCookieCheckAssetPath+'/ajax.php',
         {
             action : 'load',
         }
