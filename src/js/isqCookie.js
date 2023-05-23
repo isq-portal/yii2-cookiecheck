@@ -2,12 +2,14 @@ if (!jQuery('.scw-cookie').hasClass('scw-cookie-out')) {
     jQuery(document).find('body').addClass('scw-cookie-in');
 }
 
-function scwCookieHide()
+function isqCookieHide()
 {
     jQuery.post(
         ISQCookieCheckAssetPath+'/ajax.php',
         {
-            action : 'hide'
+            action : 'hide',
+            basePath: ISQCookieCheckAssetPath,
+            webroot: ISQCookieCheckWebRoot
         }
     ).done(function(data){
         if (data.hasOwnProperty('success') && data.success) {
@@ -21,17 +23,17 @@ function scwCookieHide()
     });
 }
 
-function scwCookieDetails()
+function isqCookieDetails()
 {
     jQuery('.scw-cookie-details').slideToggle();
 }
 
-function scwCookieToggle(element)
+function isqCookieToggle(element)
 {
     jQuery(element).closest('.scw-cookie-toggle').find('input[type="checkbox"]').click();
 }
 
-function scwCookiePanelToggle()
+function isqCookiePanelToggle()
 {
     jQuery('.scw-cookie').removeClass('scw-cookie-out');
     if (jQuery(document).find('body').hasClass('scw-cookie-in')) {
@@ -60,7 +62,9 @@ jQuery(document).on('change', '.scw-cookie-toggle input[type="checkbox"]', funct
         {
             action : 'toggle',
             name   : jQuery(this).attr('name'),
-            value  : jQuery(this).prop('checked')
+            value  : jQuery(this).prop('checked'),
+            basePath: ISQCookieCheckAssetPath,
+            webroot: ISQCookieCheckWebRoot
         }
     ).done(function(data){
         if (data.hasOwnProperty('removeCookies')) {
@@ -84,12 +88,16 @@ jQuery(document).ready(function($){
 });
 
 jQuery(document).ready(function($){
+
     jQuery.post(
         ISQCookieCheckAssetPath+'/ajax.php',
         {
             action : 'load',
+            basePath: ISQCookieCheckAssetPath,
+            webroot: ISQCookieCheckWebRoot
         }
     ).done(function(data){
+
         if (data.hasOwnProperty('removeCookies')) {
             jQuery.each(data.removeCookies, function(key, cookie){
                 Cookies.remove(cookie.name);

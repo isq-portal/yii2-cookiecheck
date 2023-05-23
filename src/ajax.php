@@ -15,7 +15,9 @@ switch ($_POST['action']) {
         break;
 
     case 'toggle':
-        $isqCookie = new \IsqPortal\Yii2Cookiecheck\ISQCookie();
+        $basePath = $_POST['basePath'];
+        $webroot = $_POST['webroot'];
+        $isqCookie = new \IsqPortal\Yii2Cookiecheck\ISQCookie($basePath, $webroot);
         $return    = [];
 
         // Update if cookie allowed or not
@@ -46,7 +48,9 @@ switch ($_POST['action']) {
         break;
 
     case 'load':
-        $isqCookie = new \IsqPortal\Yii2Cookiecheck\ISQCookie();
+        $basePath = $_POST['basePath'];
+        $webroot = $_POST['webroot'];
+        $isqCookie = new \IsqPortal\Yii2Cookiecheck\ISQCookie($basePath, $webroot);
         $return    = [];
 
         $removeCookies = [];

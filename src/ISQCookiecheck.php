@@ -37,6 +37,9 @@ class ISQCookiecheck extends Widget
     /** baseUrl property */
     private $baseUrl;
 
+    /** @var web root property */
+    private $webroot;
+
 
 
     /** widget init
@@ -59,6 +62,8 @@ class ISQCookiecheck extends Widget
         /** get asset basePath */
         $this->basePath = $this->bundle->basePath;
 
+        /** set web root */
+        $this->webroot = Yii::getAlias("@webroot");
 
 
         /** call register Assets function */
@@ -71,7 +76,7 @@ class ISQCookiecheck extends Widget
     public function run()
     {
         // require_once "ISQCookie.php";
-        $scwCookie = new ISQCookie($this->baseUrl);
+        $scwCookie = new ISQCookie($this->baseUrl, $this->webroot);
         // return a dummy div tag with cookiecheck id and class
         // return Html::tag('div', 'Cookiecheck-Content', ['id' => 'cookiecheck', 'class' => 'cookiecheck']);
         return $scwCookie->output();

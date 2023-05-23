@@ -1,7 +1,9 @@
 <?php
 
+/** namespace */
 namespace IsqPortal\Yii2Cookiecheck;
 
+/** imports */
 use Yii;
 
 /**
@@ -9,21 +11,43 @@ use Yii;
  */
 class ISQCookie
 {
-    public $config        = [];
+    /** class properties */
+    public $config = [];
+
     private $decisionMade = false;
-    private $choices      = [];
+
+    private $choices = [];
+
     private $assetBasePath;
 
-    public function __construct($basePath)
+    private $webroot;
+
+    /** constructor
+     * @param $basePath
+     * @param $webroot
+     */
+    public function __construct($basePath, $webroot)
     {
+
         $this->config = parse_ini_file("config.ini", true);
 
+        echo "<pre>";
+        var_dump($this->config);
+        echo "</pre>";
+        exit;
 
         $this->decisionMade = self::getCookie('isqCookieBannerHidden') == 'true';
+
         $this->choices      = $this->getChoices();
+
         $this->assetBasePath = $basePath;
+
+        $this->webroot = $webroot;
     }
 
+    /** returns the cookie saved choices
+     * @return array|mixed
+     */
     public function getChoices()
     {
         if (self::getCookie('isqCookie') !== false) {
@@ -39,6 +63,10 @@ class ISQCookie
         return $return;
     }
 
+    /** encrypts the cookie value for storage
+     * @param $value
+     * @return string
+     */
     public static function encrypt($value)
     {
         $value  = json_encode($value);
@@ -46,6 +74,10 @@ class ISQCookie
         return $return;
     }
 
+    /** decrypts the cookie value for processing
+     * @param $value
+     * @return mixed
+     */
     public static function decrypt($value)
     {
         $value  = base64_decode($value);
@@ -54,18 +86,31 @@ class ISQCookie
         return $return;
     }
 
+    /** checks if cookie is allowed
+     * @param $name
+     * @return bool
+     */
     public function isAllowed($name)
     {
         $choices = $this->getChoices();
         return isset($choices[$name]) && $choices[$name] == 'allowed';
     }
 
+    /** checks cookie config enabled
+     * @param $name
+     * @return bool
+     */
     public function isEnabled($name)
     {
         $check = $this->config[$name];
         return is_array($check) && isset($check['enabled']) && $check['enabled'];
     }
 
+    /** gets the attributes from cookie config
+     * @param $name
+     * @param $attribute
+     * @return false|mixed
+     */
     public function getConfig($name, $attribute)
     {
         return isset($this->config[$name]) && isset($this->config[$name][$attribute])
@@ -73,11 +118,17 @@ class ISQCookie
         : false;
     }
 
+    /** moin output function
+     * @return void
+     */
     public function output()
     {
         echo $this->getOutput();
     }
 
+    /** wrapper: get every output, embeds, codes
+     * @return string
+     */
     public function getOutput()
     {
         $return = [];
@@ -96,6 +147,10 @@ class ISQCookie
         return implode("\n", $return);
     }
 
+    /** returns the html output from php file
+     * @param $filename
+     * @return false|string
+     */
     public function getOutputHTML($filename)
     {
         if (!file_exists(Yii::getAlias("@webroot").$this->assetBasePath.'/output/'.$filename.'.php')) {
@@ -107,6 +162,9 @@ class ISQCookie
         return trim(ob_get_clean());
     }
 
+    /** filter enabled cookies
+     * @return array
+     */
     public function enabledCookies()
     {
         $return = [];
@@ -119,6 +177,9 @@ class ISQCookie
         return $return;
     }
 
+    /** filter disabled cookies
+     * @return array
+     */
     public function disabledCookies()
     {
         $return = [];
@@ -131,6 +192,16 @@ class ISQCookie
         return $return;
     }
 
+    /** validates and sets the cookie
+     * @param $name
+     * @param $value
+     * @param $lifetime
+     * @param $lifetimePeriod
+     * @param $domain
+     * @param $secure
+     * @return bool
+     * @throws \Exception
+     */
     public static function setCookie(
         $name,
         $value,
@@ -149,6 +220,15 @@ class ISQCookie
         return setcookie($name, $value, $expiry, $domain, $secure);
     }
 
+    /**
+     * @param $name
+     * @param $value
+     * @param $lifetime
+     * @param $domain
+     * @param $secure
+     * @return bool
+     * @throws \Exception
+     */
     public static function validateSetCookieParams($name, $value, $lifetime, $domain, $secure)
     {
         // Types of parameters to check
@@ -172,6 +252,10 @@ class ISQCookie
         return true;
     }
 
+    /** basic validation check
+     * @param $paramTypes
+     * @return bool
+     */
     public static function basicValidationChecks($paramTypes)
     {
         foreach ($paramTypes as $type => $variables) {
@@ -185,12 +269,16 @@ class ISQCookie
         return true;
     }
 
+    /** destroy cookies by group name
+     * @param $groupName
+     * @return array|false
+     */
     public function clearCookieGroup($groupName)
     {
-        if (!file_exists(Yii::getAlias("@webroot").$this->assetBasePath.'/output/cookies/'.$groupName.'/cookies.php')) {
+        if (!file_exists($this->webroot.'/'.$this->assetBasePath.'/output/cookies/'.$groupName.'/cookies.php')) {
             return false;
         }
-        $clearCookies = include Yii::getAlias("@webroot").$this->assetBasePath.'/output/cookies/'.$groupName.'/cookies.php';
+        $clearCookies = include $this->webroot.'/'.$this->assetBasePath.'/output/cookies/'.$groupName.'/cookies.php';
 
         $defaults = [
             'path'   => '/',
@@ -210,19 +298,26 @@ class ISQCookie
             self::destroyCookie($cookie['name'], $cookie['path'], $cookie['domain']);
             $return[] = $cookie;
         }
-
         return $return;
     }
 
+    /** If cookie exists - return it, otherwise return false
+     * @param $name
+     * @return false|mixed
+     */
     public static function getCookie($name)
     {
-        // If cookie exists - return it, otherwise return false
         return isset($_COOKIE[$name]) ? $_COOKIE[$name] : false;
     }
 
+    /** destroy cookie, set cookie expiration to 1 hour ago
+     * @param $name
+     * @param $path
+     * @param $domain
+     * @return bool
+     */
     public static function destroyCookie($name, $path = '', $domain = '')
     {
-        // Set cookie expiration to 1 hour ago
         return setcookie($name, '', time() - 3600, $path, $domain);
     }
 }

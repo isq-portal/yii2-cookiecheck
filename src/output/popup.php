@@ -6,11 +6,11 @@
 <link href="<?= $this->assetBasePath ?>/css/isqCookie.css" rel="stylesheet" type="text/css">
 <script>
     var ISQCookieCheckAssetPath = '<?= $this->assetBasePath ?>';
+    var ISQCookieCheckWebRoot = '<?= str_replace('\\', '/', $this->webroot) ?>';
 </script>
 <div class="scw-cookie<?= $this->decisionMade ? ' scw-cookie-out' : ''; ?>">
     <div class="scw-cookie-panel-toggle scw-cookie-panel-toggle-<?= $this->config['panelTogglePosition']; ?>"
-        onclick="scwCookiePanelToggle()"
-    >
+        onclick="isqCookiePanelToggle()">
         <span class="scwc-icon scwc-icon-cookie"></span>
     </div>
     <div class="scw-cookie-content">
@@ -18,9 +18,9 @@
             Diese Webseite verwendet Cookies. Notwendige Cookies sind für den Betrieb der Website und die einwandfreie Funktion erforderlich. Cookies für die Webanalyse setzen wir ein, um die Nutzung unserer Website statistisch auszuwerten. Nähere Informationen finden Sie in unseren Datenschutzhinweisen. Dort können Sie auch Ihre Cookie-Einstellungen jederzeit ändern.
         </div>
         <div class="scw-cookie-decision">
-            <div class="scw-cookie-btn" onclick="scwCookieHide()">OK</div>
+            <div class="scw-cookie-btn" onclick="isqCookieHide()">OK</div>
             <div class="scw-cookie-settings scw-cookie-tooltip-trigger"
-                onclick="scwCookieDetails()"
+                onclick="isqCookieDetails()"
                 data-label="Einstellungen"
             >
                 <span class="scwc-icon scwc-icon-settings"></span>
@@ -42,7 +42,7 @@
             </div>
             <?php foreach ($this->enabledCookies() as $name => $label) { ?>
                 <div class="scw-cookie-toggle">
-                    <div class="scw-cookie-name" onclick="scwCookieToggle(this)"><?= $label; ?></div>
+                    <div class="scw-cookie-name" onclick="isqCookieToggle(this)"><?= $label; ?></div>
                     <label class="scw-cookie-switch<?= $this->isAllowed($name) ? ' checked' : ''; ?>">
                         <input type="checkbox"
                         name="<?= $name; ?>"
