@@ -31,7 +31,7 @@ class ISQCookie
 
         /** fill config with options array */
         if (is_object($options)) {
-            $option = (array)$options;
+            $options = (array)$options;
         }
 
         $this->config = $options;
