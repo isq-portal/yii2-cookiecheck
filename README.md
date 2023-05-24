@@ -42,7 +42,16 @@ to the require section of your `composer.json` file.
 use IsqPortal\Yii2Cookiecheck\ISQCookiecheck;
 
 # integrate widget to view with options., e.g.:
-<? echo ISQCookiecheck::widget(['options' => []
+<? echo ISQCookiecheck::widget(['options' => [
+                    'cookiePolicyURL' => 'site/privacy',
+                                    'panelTogglePosition' => 'left',
+                                    'unsetDefault' => 'blocked',
+                                    'Matomo' => [
+                                                'enabled' => '1',
+                                                'label' => 'Webanalyse (Matomo)',
+                                                'code' => ''
+                                        ]
+                                    ]
                                 ]); 
 ```
 
