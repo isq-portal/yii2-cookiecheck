@@ -30,6 +30,10 @@ class ISQCookie
     {
 
         /** fill config with options array */
+        if (is_object($options)) {
+            $option = (array)$options;
+        }
+
         $this->config = $options;
 
         $this->assetBasePath = $options["baseUrl"];
