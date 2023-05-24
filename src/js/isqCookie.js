@@ -94,7 +94,7 @@ jQuery(document).ready(function($){
             config: ISQCookieCheckConfig
         }
     ).done(function(data){
-        alert('Here: '+data);
+        // alert('Here: '+data);
         if (data.hasOwnProperty('removeCookies')) {
             jQuery.each(data.removeCookies, function(key, cookie){
                 Cookies.remove(cookie.name);
