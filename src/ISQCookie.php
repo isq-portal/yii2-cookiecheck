@@ -26,23 +26,19 @@ class ISQCookie
      * @param $basePath
      * @param $webroot
      */
-    public function __construct($basePath, $webroot)
+    public function __construct($options)
     {
 
-        $this->config = parse_ini_file("config.ini", true);
+        /** fill config with options array */
+        $this->config = $options;
 
-        echo "<pre>";
-        var_dump($this->config);
-        echo "</pre>";
-        exit;
+        $this->assetBasePath = $options["baseUrl"];
+
+        $this->webroot = $this->config['webroot'];
 
         $this->decisionMade = self::getCookie('isqCookieBannerHidden') == 'true';
 
         $this->choices      = $this->getChoices();
-
-        $this->assetBasePath = $basePath;
-
-        $this->webroot = $webroot;
     }
 
     /** returns the cookie saved choices
@@ -123,7 +119,7 @@ class ISQCookie
      */
     public function output()
     {
-        echo $this->getOutput();
+        return $this->getOutput();
     }
 
     /** wrapper: get every output, embeds, codes

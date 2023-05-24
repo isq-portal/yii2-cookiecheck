@@ -27,7 +27,6 @@ class ISQCookiecheckAsset extends AssetBundle
         parent::init();
 
         // set asset paths
-        $this->js[] = 'js/js-cookie.js';
         $this->js[] = 'js/isqCookie.js';
         $this->css[] = 'css/isqCookie.css';
     }

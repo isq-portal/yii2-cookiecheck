@@ -1,17 +1,14 @@
-<?php
 
-// use Yii;
-
-?>
 <link href="<?= $this->assetBasePath ?>/css/isqCookie.css" rel="stylesheet" type="text/css">
 <script>
     var ISQCookieCheckAssetPath = '<?= $this->assetBasePath ?>';
     var ISQCookieCheckWebRoot = '<?= str_replace('\\', '/', $this->webroot) ?>';
+    var ISQCookieCheckConfig = '<?= json_encode($this->config) ?>';
 </script>
 <div class="scw-cookie<?= $this->decisionMade ? ' scw-cookie-out' : ''; ?>">
     <div class="scw-cookie-panel-toggle scw-cookie-panel-toggle-<?= $this->config['panelTogglePosition']; ?>"
         onclick="isqCookiePanelToggle()">
-        <span class="scwc-icon scwc-icon-cookie"></span>
+        <span class="isqc-icon isqc-icon-cookie"></span>
     </div>
     <div class="scw-cookie-content">
         <div class="scw-cookie-message">
@@ -23,11 +20,11 @@
                 onclick="isqCookieDetails()"
                 data-label="Einstellungen"
             >
-                <span class="scwc-icon scwc-icon-settings"></span>
+                <span class="isqc-icon isqc-icon-settings"></span>
             </div>
             <div class="scw-cookie-policy scw-cookie-tooltip-trigger" data-label="Datenschutzerklärung">
                 <a href="<?= $this->config['cookiePolicyURL']; ?>">
-                    <span class="scwc-icon scwc-icon-policy"></span>
+                    <span class="isqc-icon isqc-icon-policy"></span>
                 </a>
             </div>
         </div>
@@ -56,5 +53,4 @@
             </div>
         </div>
     </div>
-    <script src="<?= $this->assetBasePath ?>/js/js-cookie.js" type="text/javascript"></script>
     <script src="<?= $this->assetBasePath ?>/js/isqCookie.js" type="text/javascript"></script>

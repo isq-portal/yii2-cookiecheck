@@ -8,13 +8,12 @@ function isqCookieHide()
         ISQCookieCheckAssetPath+'/ajax.php',
         {
             action : 'hide',
-            basePath: ISQCookieCheckAssetPath,
-            webroot: ISQCookieCheckWebRoot
+            config: ISQCookieCheckConfig
         }
     ).done(function(data){
         if (data.hasOwnProperty('success') && data.success) {
             jQuery('.scw-cookie').addClass('scw-cookie-slide-out');
-            jQuery(document).find('body').removeClass('scw-cookie-in');            
+            jQuery(document).find('body').removeClass('scw-cookie-in');
         }
 
         if (jQuery('.scw-cookie').hasClass('changed')) {
@@ -63,8 +62,7 @@ jQuery(document).on('change', '.scw-cookie-toggle input[type="checkbox"]', funct
             action : 'toggle',
             name   : jQuery(this).attr('name'),
             value  : jQuery(this).prop('checked'),
-            basePath: ISQCookieCheckAssetPath,
-            webroot: ISQCookieCheckWebRoot
+            config: ISQCookieCheckConfig
         }
     ).done(function(data){
         if (data.hasOwnProperty('removeCookies')) {
@@ -93,11 +91,10 @@ jQuery(document).ready(function($){
         ISQCookieCheckAssetPath+'/ajax.php',
         {
             action : 'load',
-            basePath: ISQCookieCheckAssetPath,
-            webroot: ISQCookieCheckWebRoot
+            config: ISQCookieCheckConfig
         }
     ).done(function(data){
-
+        alert('Here: '+data);
         if (data.hasOwnProperty('removeCookies')) {
             jQuery.each(data.removeCookies, function(key, cookie){
                 Cookies.remove(cookie.name);
