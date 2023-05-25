@@ -134,7 +134,7 @@ body.scw-cookie-in {
 }
 .scw-cookie-details {
     clear: both;
-    display: none;
+    display: block;
     padding-top: 15px;
 }
 .scw-cookie-details::after {

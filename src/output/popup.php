@@ -12,7 +12,11 @@
     </div>
     <div class="scw-cookie-content">
         <div class="scw-cookie-message">
-            Diese Webseite verwendet Cookies. Notwendige Cookies sind für den Betrieb der Website und die einwandfreie Funktion erforderlich. Cookies für die Webanalyse setzen wir ein, um die Nutzung unserer Website statistisch auszuwerten. Nähere Informationen finden Sie in unseren Datenschutzhinweisen. Dort können Sie auch Ihre Cookie-Einstellungen jederzeit ändern.
+            Diese Webseite verwendet Cookies.
+            Technisch notwendige Cookies sind für den funktionalen Betrieb der Website erforderlich.
+            Cookies für die Webanalyse setzen wir ein, um die Nutzung unserer Website statistisch auszuwerten.
+            Nähere Informationen finden Sie in unserer <a style="color: #FFFFFF; text-decoration: underline;" href="<?= $this->config['cookiePolicyURL']; ?>">Datenschutzerklärung</a>.
+            Dort können Sie auch Ihre <span onclick="isqCookieDetails();" style="text-decoration: underline; cursor: pointer;">Cookie-Einstellungen</span> jederzeit ändern.
         </div>
         <div class="scw-cookie-decision">
             <div class="scw-cookie-btn" onclick="isqCookieHide()">OK</div>
@@ -31,7 +35,7 @@
         <div class="scw-cookie-details">
             <div class="scw-cookie-details-title">Verwaltung der Cookies</div>
             <div class="scw-cookie-toggle">
-                <div class="scw-cookie-name">Notwendige Cookies</div>
+                <div class="scw-cookie-name">technisch notwendige Cookies</div>
                 <label class="scw-cookie-switch checked disabled">
                     <input type="checkbox" name="essential" checked="checked" disabled="disabled">
                     <div></div>
