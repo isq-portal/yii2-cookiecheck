@@ -31,7 +31,7 @@ body.scw-cookie-in {
     transform: translateY(-100%);
 }
 .scw-cookie-panel-toggle::before {
-    background: #2D3436;
+    background: #00475D;
     content: 'Datenschutz';
     float: left;
     height: 20px;
@@ -58,7 +58,7 @@ body.scw-cookie-in {
     border-top-color: #20BF6B;
 }
 .scw-cookie {
-    background: #2D3436;
+    background: #00475D;
     bottom: 0;
     color: #FFFFFF;
     font-family: Arial;
