@@ -148,11 +148,7 @@ class ISQCookie
             $isAllowed = $this->isAllowed($configKey);
 
             // make php8 conform and avoid illegal string offsets
-            $isConfigValue = false;
-
-            if (isset($configValue['enabled'])) {
-                $isConfigValue = $configValue['enabled'];
-            }
+            $isConfigValue = isset($configValue['enabled']) ? $configValue['enabled'] : false;
 
             if (!$isArray || !$isConfigValue || !$isAllowed) {
                 continue;

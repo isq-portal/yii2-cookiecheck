@@ -32,6 +32,15 @@ function isqCookieToggle(element)
     jQuery(element).closest('.scw-cookie-toggle').find('input[type="checkbox"]').click();
 }
 
+function isqCookieActivateAll()
+{
+    var objectsInserted = jQuery('.scw-toggle-switch');
+    for (var obj of objectsInserted) {
+        obj.click();
+    }
+
+}
+
 function isqCookiePanelToggle()
 {
     jQuery('.scw-cookie').removeClass('scw-cookie-out');

@@ -148,48 +148,50 @@ body.scw-cookie-in {
 .scw-cookie-toggle {
     border: solid 1px;
     box-sizing: border-box;
-    float: left;
+    /*float: left;*/
     margin-top: 10px;
     padding: 5px;
-    width: calc(50% - 5px);
+    /*width: calc(50% - 5px);*/
 }
+/*
 .scw-cookie-toggle:nth-child(even) {
-    margin-right: 5px;
+margin-right: 5px;
 }
 .scw-cookie-toggle:nth-child(odd) {
-    margin-left: 5px;
+margin-left: 5px;
 }
+*/
 .scw-cookie-name {
-    cursor: pointer;
-    float: left;
-    line-height: 23px;
-    padding-left: 15px;
-    width: 80%;
+cursor: pointer;
+float: left;
+line-height: 23px;
+padding-left: 15px;
+width: 80%;
 }
 .scw-cookie-toggle input[type="checkbox"] {
-    cursor: pointer;
-    float: left;
-    height: 25px;
-    margin: 0;
-    width: 20%;
+cursor: pointer;
+float: left;
+height: 25px;
+margin: 0;
+width: 20%;
 }
 
 .scw-cookie-tooltip-trigger {
-    position: relative;
+position: relative;
 }
 .scw-cookie-tooltip {
-    animation: fadeIn .5s ease-in-out;
-    background: #fff;
-    border: solid 1px #000;
-    color: #000;
-    font-size: 11px;
-    left: 50%;
-    line-height: 23px;
-    padding: 0 10px;
-    position: absolute;
-    top: 0;
-    transform: translate(-50%, -100%);
-    width: 130px;
+animation: fadeIn .5s ease-in-out;
+background: #fff;
+border: solid 1px #000;
+color: #000;
+font-size: 11px;
+left: 50%;
+line-height: 23px;
+padding: 0 10px;
+position: absolute;
+top: 0;
+transform: translate(-50%, -100%);
+width: 130px;
 }
 
 /* Animations */
