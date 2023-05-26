@@ -40,7 +40,8 @@ class ISQCookiecheck extends Widget
     /** @var web root property */
     private $webroot;
 
-
+    /** @var vendorPath property */
+    private $vendorPath;
 
     /** widget init
      * @return void
@@ -49,9 +50,6 @@ class ISQCookiecheck extends Widget
     {
         /** parent init call */
         parent::init();
-
-        /** set alias for routing **/
-        Yii::setAlias('@isqcookiecheck', dirname(__FILE__));
 
         /** get the asset bundle instance */
         $this->bundle = Yii::$app->getAssetManager()->getBundle('IsqPortal\Yii2Cookiecheck\ISQCookiecheckAsset');
@@ -65,6 +63,8 @@ class ISQCookiecheck extends Widget
         /** set web root */
         $this->webroot = Yii::getAlias("@webroot");
 
+        /** get asset vendorPath */
+        $this->vendorPath = Yii::getAlias("@vendor") . '/isq-portal/yii2-cookiecheck';
 
         /** call register Assets function */
         $this->registerAssets();
@@ -76,6 +76,7 @@ class ISQCookiecheck extends Widget
     public function run()
     {
         /** add baseUrl & webroot config to options array */
+        $this->options['vendorPath'] = $this->vendorPath;
         $this->options['baseUrl'] = $this->baseUrl;
         $this->options['webroot'] = $this->webroot;
         $isqCookie = new ISQCookie($this->options);

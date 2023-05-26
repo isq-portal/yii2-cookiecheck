@@ -9,7 +9,7 @@ use yii\web\AssetBundle;
  */
 class ISQCookiecheckAsset extends AssetBundle
 {
-    public $sourcePath = "@isqcookiecheck";
+    public $sourcePath = '@vendor/isq-portal/yii2-cookiecheck/src';
 
     public $js = [];
 

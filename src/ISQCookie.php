@@ -18,6 +18,8 @@ class ISQCookie
 
     private $choices = [];
 
+    private $vendorPath;
+
     private $assetBasePath;
 
     private $webroot;
@@ -36,13 +38,16 @@ class ISQCookie
 
         $this->config = $options;
 
-        $this->assetBasePath = $options["baseUrl"];
+        $this->vendorPath = $options['vendorPath'];
+
+        $this->assetBasePath = $options['baseUrl'];
 
         $this->webroot = $this->config['webroot'];
 
         $this->decisionMade = self::getCookie('isqCookieBannerHidden') == 'true';
 
-        $this->choices      = $this->getChoices();
+        $this->choices = $this->getChoices();
+
     }
 
     /** returns the cookie saved choices
@@ -138,13 +143,18 @@ class ISQCookie
 
         // Get embed codes
         foreach ($this->config as $configKey => $configValue) {
-            if (!is_array($configValue) || !$configValue['enabled'] || !$this->isAllowed($configKey)) {
+
+            $isArray = is_array($configValue);
+            $isAllowed = $this->isAllowed($configKey);
+            $isConfigValue = $configValue['enabled'];
+
+            if (!$isArray || !$isConfigValue || !$isAllowed) {
                 continue;
             }
             $return[] = $this->getOutputHTML('cookies/'.$configKey.'/output');
         }
 
-        return implode("\n", $return);
+        return implode('\n', $return);
     }
 
     /** returns the html output from php file
@@ -153,12 +163,14 @@ class ISQCookie
      */
     public function getOutputHTML($filename)
     {
-        if (!file_exists(Yii::getAlias("@webroot").$this->assetBasePath.'/output/'.$filename.'.php')) {
+        $path = $this->vendorPath . '/src/output/'.$filename.'.php';
+
+        if (!file_exists($path)) {
             return false;
         }
 
         ob_start();
-        include Yii::getAlias("@webroot").$this->assetBasePath.'/output/'.$filename.'.php';
+        include $path;
         return trim(ob_get_clean());
     }
 
@@ -184,9 +196,15 @@ class ISQCookie
     {
         $return = [];
         foreach ($this->config as $name => $value) {
-            if (!$this->isEnabled($name) || !is_array($value) || $this->isAllowed($name)) {
+
+            $isEnabled = $this->isEnabled($name);
+            $isArray = is_array($value);
+            $isAllowed = $this->isAllowed($name);
+
+            if (!$isEnabled || !$isArray || $isAllowed) {
                 continue;
             }
+
             $return[$name] = $value['label'];
         }
         return $return;
@@ -246,7 +264,7 @@ class ISQCookie
         if (!$validParams) {
             // Failed parameter check
             header('HTTP/1.0 403 Forbidden');
-            throw new \Exception("Incorrect parameter passed to Cookie::set");
+            throw new \Exception('Incorrect parameter passed to Cookie::set');
         }
 
         return true;
@@ -275,10 +293,13 @@ class ISQCookie
      */
     public function clearCookieGroup($groupName)
     {
-        if (!file_exists($this->webroot.'/'.$this->assetBasePath.'/output/cookies/'.$groupName.'/cookies.php')) {
+
+        $path = $this->vendorPath . '/src/output/cookies/'.$groupName.'/cookies.php';
+
+        if (!file_exists($path)) {
             return false;
         }
-        $clearCookies = include $this->webroot.'/'.$this->assetBasePath.'/output/cookies/'.$groupName.'/cookies.php';
+        $clearCookies = include $path;
 
         $defaults = [
             'path'   => '/',
