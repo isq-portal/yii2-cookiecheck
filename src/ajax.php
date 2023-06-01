@@ -15,7 +15,8 @@ switch ($_POST['action']) {
         break;
 
     case 'toggle':
-        $config = json_decode($_POST['config']);
+        $jsonConfig = html_entity_decode($_POST['config']);
+        $config = json_decode($jsonConfig);
         $isqCookie = new \IsqPortal\Yii2Cookiecheck\ISQCookie($config);
         $return    = [];
 
@@ -48,7 +49,8 @@ switch ($_POST['action']) {
 
     case 'load':
 
-        $config = json_decode($_POST['config']);
+        $jsonConfig = html_entity_decode($_POST['config']);
+        $config = json_decode($jsonConfig);
         $isqCookie = new \IsqPortal\Yii2Cookiecheck\ISQCookie($config);
         $return    = [];
 

@@ -25,8 +25,7 @@ class ISQCookie
     private $webroot;
 
     /** constructor
-     * @param $basePath
-     * @param $webroot
+     * @param $options
      */
     public function __construct($options)
     {
@@ -38,11 +37,17 @@ class ISQCookie
 
         $this->config = $options;
 
-        $this->vendorPath = $options['vendorPath'];
+        if (isset($options['vendorPath'])) {
+            $this->vendorPath = $options['vendorPath'];
+        }
 
-        $this->assetBasePath = $options['baseUrl'];
+        if (isset($options['baseUrl'])) {
+            $this->assetBasePath = $options['baseUrl'];
+        }
 
-        $this->webroot = $this->config['webroot'];
+        if (isset($options['webroot'])) {
+            $this->webroot = $this->config['webroot'];
+        }
 
         $this->decisionMade = self::getCookie('isqCookieBannerHidden') == 'true';
 
@@ -119,12 +124,12 @@ class ISQCookie
     public function getConfig($name, $attribute)
     {
         return isset($this->config[$name]) && isset($this->config[$name][$attribute])
-        ? $this->config[$name][$attribute]
-        : false;
+            ? $this->config[$name][$attribute]
+            : false;
     }
 
     /** moin output function
-     * @return void
+     * @return string
      */
     public function output()
     {
@@ -156,7 +161,7 @@ class ISQCookie
             $return[] = $this->getOutputHTML('cookies/'.$configKey.'/output');
         }
 
-        return implode('\n', $return);
+        return implode("\n", $return);
     }
 
     /** returns the html output from php file
@@ -182,12 +187,15 @@ class ISQCookie
     public function enabledCookies()
     {
         $return = [];
-        foreach ($this->config as $name => $value) {
-            if (!$this->isEnabled($name)) {
-                continue;
+        if (isset($this->config)) {
+            foreach ($this->config as $name => $value) {
+                if (!$this->isEnabled($name)) {
+                    continue;
+                }
+                $return[$name] = $value['label'];
             }
-            $return[$name] = $value['label'];
         }
+
         return $return;
     }
 
@@ -197,18 +205,21 @@ class ISQCookie
     public function disabledCookies()
     {
         $return = [];
-        foreach ($this->config as $name => $value) {
+        if (isset($this->config)) {
+            foreach ($this->config as $name => $value) {
 
-            $isEnabled = $this->isEnabled($name);
-            $isArray = is_array($value);
-            $isAllowed = $this->isAllowed($name);
+                $isEnabled = $this->isEnabled($name);
+                $isArray = is_array($value);
+                $isAllowed = $this->isAllowed($name);
 
-            if (!$isEnabled || !$isArray || $isAllowed) {
-                continue;
+                if (!$isEnabled || !$isArray || $isAllowed) {
+                    continue;
+                }
+
+                $return[$name] = $value['label'];
             }
-
-            $return[$name] = $value['label'];
         }
+
         return $return;
     }
 

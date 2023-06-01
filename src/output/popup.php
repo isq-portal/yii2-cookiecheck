@@ -7,7 +7,7 @@
 </script>
 <div class="scw-cookie<?= $this->decisionMade ? ' scw-cookie-out' : ''; ?>">
     <div class="scw-cookie-panel-toggle scw-cookie-panel-toggle-<?= $this->config['panelTogglePosition']; ?>"
-        onclick="isqCookiePanelToggle()">
+         onclick="isqCookiePanelToggle();">
         <span class="isqc-icon isqc-icon-cookie"></span>
     </div>
     <div class="scw-cookie-content">
@@ -23,26 +23,10 @@
             <div class="col-md-4">
                 <div class="row">
                     <div class="col-md-12">
-                        <div class="btn btn-success" onclick="isqCookieActivateAll(); isqCookieHide();">Alle akzeptieren</div>
-                        <div class="btn btn-primary" onclick="isqCookieHide()">Speichern</div>
+                        <div class="btn btn-success" onclick="isqCookieActivateAll();">Alle akzeptieren</div>
+                        <div class="btn btn-primary" onclick="isqCookieHide();">Speichern</div>
                     </div>
                 </div>
-                <!--
-                <div class="row">
-                    <div class="col-md-12">
-                        <div class="scw-cookie-settings scw-cookie-tooltip-trigger"
-                             onclick="isqCookieDetails()"
-                             data-label="Einstellungen">
-                            <span class="isqc-icon isqc-icon-settings"></span>
-                        </div>
-                        <div class="scw-cookie-policy scw-cookie-tooltip-trigger" data-label="Datenschutzerklärung">
-                            <a href="<?= $this->config['cookiePolicyURL']; ?>">
-                                <span class="isqc-icon isqc-icon-policy"></span>
-                            </a>
-                        </div>
-                    </div>
-                </div>
-                --!>
             </div>
         </div>
         <div class="scw-cookie-details">
@@ -60,8 +44,8 @@
                         <div class="scw-cookie-name scw-toggle-switch" onclick="isqCookieToggle(this)"><?= $label; ?></div>
                         <label class="scw-cookie-switch<?= $this->isAllowed($name) ? ' checked' : ''; ?>">
                             <input type="checkbox"
-                            name="<?= $name; ?>"
-                            <?= $this->isAllowed($name) ? 'checked="checked"' : ''; ?>
+                                   name="<?= $name; ?>"
+                                <?= $this->isAllowed($name) ? 'checked="checked"' : ''; ?>
                             >
                             <div></div>
                         </label>

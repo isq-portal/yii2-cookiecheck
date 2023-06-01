@@ -36,8 +36,14 @@ function isqCookieActivateAll()
 {
     var objectsInserted = jQuery('.scw-toggle-switch');
     for (var obj of objectsInserted) {
-        obj.click();
+        // check if already checked?
+        let toggleSwitchCheck = jQuery(obj).closest('.scw-cookie-toggle').find('input[type="checkbox"]');
+        if (toggleSwitchCheck.prop('checked') != true) {
+            obj.click();
+        }
     }
+    // short timeout, wait for async ajax to finish
+    setTimeout(isqCookieHide, 500);
 
 }
 
