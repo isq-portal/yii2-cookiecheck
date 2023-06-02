@@ -1,4 +1,8 @@
+<?php
 
+$privacyLink = str_replace('/index.php', $this->config['cookiePolicyURL'], $_SERVER[PHP_SELF]);
+
+?>
 <link href="<?= $this->assetBasePath ?>/css/isqCookie.css" rel="stylesheet" type="text/css">
 <script>
     var ISQCookieCheckAssetPath = '<?= $this->assetBasePath ?>';
@@ -16,7 +20,7 @@
                 Diese Webseite verwendet Cookies.
                 Technisch notwendige Cookies sind für den funktionalen Betrieb der Website erforderlich.
                 Cookies für die Webanalyse setzen wir ein, um die Nutzung unserer Website statistisch auszuwerten.
-                Nähere Informationen finden Sie in unserer <a style="color: #FFFFFF; text-decoration: underline;" href="<?= $this->config['cookiePolicyURL']; ?>">Datenschutzerklärung</a>.
+                Nähere Informationen finden Sie in unserer <a style="color: #FFFFFF; text-decoration: underline;" href="<?= $privacyLink ?>">Datenschutzerklärung</a>.
                 Dort können Sie auch Ihre Cookie-Einstellungen jederzeit ändern.
                 <br /><br />
             </div>
