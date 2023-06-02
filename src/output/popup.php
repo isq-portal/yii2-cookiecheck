@@ -1,5 +1,5 @@
 <?php
-$privacyLink = str_replace('/index.php', $this->config['cookiePolicyURL'], $_SERVER[PHP_SELF]);
+$privacyLink = str_replace('/index.php', $this->config['cookiePolicyURL'], $_SERVER['PHP_SELF']);
 ?>
 <link href="<?= $this->assetBasePath ?>/css/isqCookie.css" rel="stylesheet" type="text/css">
 <script>
