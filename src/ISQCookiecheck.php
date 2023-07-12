@@ -91,8 +91,12 @@ class ISQCookiecheck extends Widget
     public function registerAssets()
     {
         $this->view = $this->getView();
-        $this->view->registerJS($this->configJs, View::POS_HEAD);
-        $this->view->registerCss($this->configCss);
+        if (isset($this->configJs)) {
+            $this->view->registerJS($this->configJs, View::POS_HEAD);
+        }
+        if (isset($this->configCss)) {
+            $this->view->registerCss($this->configCss);
+        }
         ISQCookiecheckAsset::register($this->view);
 
     }
