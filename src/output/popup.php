@@ -56,4 +56,5 @@ $privacyLink = str_replace('/index.php', $this->config['cookiePolicyURL'], $_SER
             </div>
         </div>
     </div>
-    <script src="<?= $this->assetBasePath ?>/js/isqCookie.js" type="text/javascript"></script>
+</div>
+<script src="<?= $this->assetBasePath ?>/js/isqCookie.js" type="text/javascript"></script>
